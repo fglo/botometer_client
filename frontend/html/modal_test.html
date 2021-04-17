@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Accounts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="../css/uikit.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.10.24/css/dataTables.uikit.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="uk-navbar-container" uk-navbar>
+      <div class="uk-navbar-left">
+        <a href="" class="uk-navbar-item uk-logo"></a>
+        <ul class="uk-navbar-nav">
+          <li class="uk-active">
+            <a href="/views/accounts">accounts</a>
+          </li>
+          <li>
+            <a href="/views/verifications">verifications</a>
+          </li>
+        </ul>
+      </div>
+      <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+          <li>
+            <a href="/views/accounts">{{ username }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="uk-container">
+      <!-- This is a button toggling the modal -->
+    <button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #create-modal">Open</button>
+
+      
+      <div id="create-modal" uk-modal>
+        <div class="uk-modal-body uk-modal-dialog uk-width-1-3">
+          <button
+            class="uk-modal-close-default"
+            type="button"
+            uk-close
+          ></button>
+          <div class="uk-modal-header">
+            <h2 class="uk-modal-title">{{ username }}</h2>
+          </div>
+          <div class="uk-modal-body">
+            <ul class="uk-list">
+              <li>Username: F16402319</li>
+              <li>Addres: https://twitter.com/F16402319</li>
+              <li>First Name: F</li>
+              <li>Last Name: G</li>
+            </ul>
+
+            <div
+              class="uk-width-1-1 uk-margin"
+              style="border-bottom: 1px solid #e5e5e5"
+            ></div>
+
+            <ul class="uk-list">
+              <li>one: <span class="uk-label uk-label-success">True</span></li>
+              <li>two: <span class="uk-label">True</span></li>
+              <li>three: <span class="uk-label uk-label-warning">False</span></li>
+              <li>four: <span class="uk-label uk-label-danger">False</span></li>
+            </ul>
+
+            <div
+              class="uk-width-1-1 uk-margin"
+              style="border-bottom: 1px solid #e5e5e5"
+            ></div>
+
+            <div class="uk-text-right">
+              <button
+                class="uk-button uk-button-default uk-modal-close"
+                type="button"
+              >
+                Anuluj
+              </button>
+              <button
+                id="SaveButton"
+                class="uk-button uk-button-primary"
+                type="button"
+              >
+                Zapisz
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../js/uikit.min.js"></script>
+    <script src="../js/uikit-icons.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.uikit.min.js "></script>
+  </body>
+</html>

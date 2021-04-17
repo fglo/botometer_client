@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Accounts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="{{ url_for('css', path='uikit.min.css') }}" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.10.24/css/dataTables.uikit.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="uk-navbar-container" uk-navbar>
+      <div class="uk-navbar-left">
+        <a href="" class="uk-navbar-item uk-logo"></a>
+        <ul class="uk-navbar-nav">
+          <li class="uk-active">
+            <a href="/views/accounts">accounts</a>
+          </li>
+          <li>
+            <a href="/views/verifications">verifications</a>
+          </li>
+        </ul>
+      </div>
+      <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+          <li>
+            <a href="/views/accounts">{{ username }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="uk-container">
+      <div class="uk-margin uk-section uk-section-default" uk-grid>
+        <div
+          class="uk-card uk-card-hover uk-card-default uk-card-body uk-width-1-1 uk-padding-small"
+        >
+          <form id="form-add-account">
+            <div uk-grid>
+              <div>
+                <input
+                  class="uk-input uk-form-width-medium"
+                  type="text"
+                  placeholder="account address"
+                  name="url"
+                  id="url"
+                />
+              </div>
+              <div>
+                <input
+                  class="uk-input uk-form-width-medium"
+                  type="text"
+                  placeholder="account name"
+                  name="username"
+                  id="username"
+                />
+              </div>
+              <div>
+                <input
+                  class="uk-input uk-form-width-medium"
+                  type="text"
+                  placeholder="first name"
+                  name="firstname"
+                  id="firstname"
+                />
+              </div>
+              <div>
+                <input
+                  class="uk-input uk-form-width-medium"
+                  type="text"
+                  placeholder="last name"
+                  name="lastname"
+                  id="lastname"
+                />
+              </div>
+              <div>
+                <button type="button" class="uk-button uk-button-primary" id="bttn-add-account">
+                  Dodaj
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div
+          class="uk-card uk-card-hover uk-card-default uk-card-body uk-width-1-1"
+        >
+          <h3 class="uk-card-title">accounts</h3>
+          <table
+            id="accounts-table"
+            class="uk-table uk-table-hover display"
+            width="100%"
+          ></table>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ url_for('js', path='uikit.min.js') }}"></script>
+    <script src="{{ url_for('js', path='uikit-icons.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.uikit.min.js "></script>
+
+    <script src="{{ url_for('js', path='views/accounts.js') }}"></script>
+  </body>
+</html>
