@@ -8,10 +8,8 @@ from datetime import datetime
 class VerificationBase(BaseModel):
     date: datetime
 
-
 class VerificationCreate(VerificationBase):
     pass
-
 
 class Verification(VerificationBase):
     id: int
@@ -32,7 +30,6 @@ class Verification(VerificationBase):
     class Config:
         orm_mode = True
 
-
 class AccountBase(BaseModel):
     url: str
     username: str
@@ -51,6 +48,10 @@ class Account(AccountBase):
 
     class Config:
         orm_mode = True
+
+        
+class VerificationWithAccount(Verification):
+    account: Optional[Account]
 
 class AccountWithLastVerification(Account):
     last_verification: Optional[Verification]

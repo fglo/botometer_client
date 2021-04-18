@@ -12,6 +12,7 @@ templates = Jinja2Templates(directory="frontend/html")
 account_list_template = "accounts.html"
 verification_list_template = "verifications.html"
 archive_list_template = "archive.html"
+account_details_modal_template = "account_details.html"
 
 @router.get("/views/accounts", response_class=HTMLResponse, tags=["views"]) 
 async def view_all_accounts(request: Request):
@@ -28,3 +29,7 @@ async def view_all_verifications(request: Request):
 @router.get("/views/verifications/{account_id}", response_class=HTMLResponse, tags=["views"]) 
 async def view_all_account_verifications(request: Request, account_id : int):
     return templates.TemplateResponse(globals()['verification_list_template'], {"request": request, "username": "filip", "account_id": account_id})
+    
+@router.get("/views/accountdetails", response_class=HTMLResponse, tags=["views"]) 
+async def view_account_details(request: Request, account_id : int):
+    return templates.TemplateResponse(globals()['account_details_modal_template'], {"request": request})

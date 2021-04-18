@@ -12,7 +12,7 @@ var table = $("#accounts-table").DataTable({
       data: null,
       defaultContent:
         "<div>" +
-        '<a class="account-restore button button-small" title="Restore" style="background: transparent;">' +
+        '<a class="account-restore button button-small" uk-tootlip="Restore" style="background: transparent;">' +
         '<i uk-icon="icon: history; ratio: 0.9"></i>' +
         "</a>" +
         "</div>",
@@ -20,7 +20,7 @@ var table = $("#accounts-table").DataTable({
   ],
 });
 
-var accountsToRestore = [];
+var accountsSelected = [];
 
 $("#accounts-table").on("click", "a.account-restore", function () {
   var row = table.row($(this).parents("tr")).data();
@@ -45,13 +45,13 @@ $("#accounts-table").on("click", "a.account-restore", function () {
 $("#accounts-table").on("change", "input.chck-account-select", function () {
   var row = table.row($(this).parents("tr")).data();
   if (this.checked) {
-    accountsToRestore.push(row["id"]);
+    accountsSelected.push(row["id"]);
   } else {
-    accountsToRestore = accountsToRestore.filter(function (value, index, arr) {
+    accountsSelected = accountsSelected.filter(function (value, index, arr) {
       return value !== row["id"];
     });
   }
-  if(accountsToRestore.length > 0) {
+  if(accountsSelected.length > 0) {
     $('#bttn-restore-many').removeAttr('disabled');
   } else {
     $('#bttn-restore-many').attr('disabled', true);
@@ -62,7 +62,7 @@ $(document).on("click", "#bttn-restore-many", function () {
   $.ajax({
     type: "POST",
     url: "/accounts/restore",
-    data: JSON.stringify(accountsToRestore),
+    data: JSON.stringify(accountsSelected),
     success: function () {
       table.ajax.reload();
       UIkit.notification({

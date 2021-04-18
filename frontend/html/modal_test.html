@@ -37,9 +37,14 @@
 
     <div class="uk-container">
       <!-- This is a button toggling the modal -->
-    <button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #create-modal">Open</button>
+      <button
+        class="uk-button uk-button-default uk-margin-small-right"
+        type="button"
+        uk-toggle="target: #create-modal"
+      >
+        Open
+      </button>
 
-      
       <div id="create-modal" uk-modal>
         <div class="uk-modal-body uk-modal-dialog uk-width-1-3">
           <button
@@ -51,24 +56,120 @@
             <h2 class="uk-modal-title">{{ username }}</h2>
           </div>
           <div class="uk-modal-body">
-            <ul class="uk-list">
-              <li>Username: F16402319</li>
-              <li>Addres: https://twitter.com/F16402319</li>
-              <li>First Name: F</li>
-              <li>Last Name: G</li>
-            </ul>
+            <table class="uk-table uk-table-small">
+              <tbody>
+                <tr>
+                  <td class="uk-table-shrink uk-text-nowrap">Username:</td>
+                  <td class="uk-text-nowrap"><b>{{username}}</b></td>
+                </tr>
+                <tr>
+                  <td class="uk-table-shrink uk-text-nowrap">Address:</td>
+                  <td class="uk-text-nowrap"><b>{{url}}</b></td>
+                </tr>
+                <tr>
+                  <td class="uk-table-shrink uk-text-nowrap">First Name:</td>
+                  <td class="uk-text-nowrap"><b>{{firstname}}</b></td>
+                </tr>
+                <tr>
+                  <td class="uk-table-shrink uk-text-nowrap">Last Name:</td>
+                  <td class="uk-text-nowrap"><b>{{lastname}}</b></td>
+                </tr>
+                <tr>
+                  <td class="uk-table-shrink uk-text-nowrap">Last Verification:</td>
+                  <td class="uk-text-nowrap"><b>{{last_verification}}</b></td>
+                </tr>
+              </tbody>
+            </table>
 
             <div
               class="uk-width-1-1 uk-margin"
               style="border-bottom: 1px solid #e5e5e5"
             ></div>
 
-            <ul class="uk-list">
-              <li>one: <span class="uk-label uk-label-success">True</span></li>
-              <li>two: <span class="uk-label">True</span></li>
-              <li>three: <span class="uk-label uk-label-warning">False</span></li>
-              <li>four: <span class="uk-label uk-label-danger">False</span></li>
-            </ul>
+            <table class="uk-table uk-table-small">
+              <tbody>
+                <tr>
+                  <td class="uk-table-shrink uk-text-nowrap">
+                    <span uk-tooltip="Overall probability that account is a bot"
+                      >Overall:</span
+                    >
+                  </td>
+                  <td class="uk-text-nowrap">
+                    <span class="fake-account-label uk-label uk-label-danger">True</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="uk-table-shrink uk-text-nowrap">
+                    <span
+                      class="uk-width-1-3"
+                      uk-tooltip="Bot purchased to increase follower counts"
+                      >Fake Follower:</span
+                    >
+                  </td>
+                  <td class="uk-text-nowrap">
+                    <span class="uk-label uk-label-warning">True</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="uk-table-shrink uk-text-nowrap">
+                    <span class="uk-width-1-3" uk-tooltip="Bot from botwiki.org"
+                      >Self Declared:</span
+                    >
+                  </td>
+                  <td class="uk-text-nowrap">
+                    <span class="uk-label uk-label-warning">True</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="uk-table-shrink uk-text-nowrap">
+                    <span
+                      class="uk-width-1-3"
+                      uk-tooltip="Manually labeled political bot and/or account involved in follow trains that systematically delete content"
+                      >Astroturf:</span
+                    >
+                  </td>
+                  <td class="uk-text-nowrap">
+                    <span class="uk-label uk-label-warning">True</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="uk-table-shrink uk-text-nowrap">
+                    <span
+                      class="uk-width-1-3"
+                      uk-tooltip="Account labeled as spambot from several datasets"
+                      >Spammer:</span
+                    >
+                  </td>
+                  <td class="uk-text-nowrap">
+                    <span class="uk-label uk-label-warning">True</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="uk-table-shrink uk-text-nowrap">
+                    <span
+                      class="uk-width-1-3"
+                      uk-tooltip="Bot that posts using cashtags"
+                      >Financial:</span
+                    >
+                  </td>
+                  <td class="uk-text-nowrap">
+                    <span class="uk-label uk-label-warning">True</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="uk-table-shrink uk-text-nowrap">
+                    <span
+                      class="uk-width-1-3"
+                      uk-tooltip="Miscellaneous other bot obtained from manual annotation, user feedback, etc."
+                      >Other:</span
+                    >
+                  </td>
+                  <td class="uk-text-nowrap">
+                    <span class="uk-label uk-label-warning">True</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
 
             <div
               class="uk-width-1-1 uk-margin"
@@ -81,13 +182,6 @@
                 type="button"
               >
                 Anuluj
-              </button>
-              <button
-                id="SaveButton"
-                class="uk-button uk-button-primary"
-                type="button"
-              >
-                Zapisz
               </button>
             </div>
           </div>

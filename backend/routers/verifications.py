@@ -11,17 +11,15 @@ from ..verifier import verifier
 
 router = APIRouter()
 
-@router.get("/verifications/getall", tags=["verifications"], response_model=List[schemas.Verification])
+@router.get("/verifications/getall", tags=["verifications"], response_model=List[schemas.VerificationWithAccount])
 async def get_all_verifications(db: Session = Depends(get_db)):
-    accounts = crud.get_accounts(db, skip=0, limit=100)
-    for account in accounts:
-        account.last_verification = crud.get_last_account_verification(db, account_id = account.id)
-    return accounts
+    verifications = crud.get_verifications(db)
+    return verifications
     
-@router.get("/verifications/get/{verification_id}", tags=["verifications"], response_model=schemas.Verification)
+@router.get("/verifications/get/{verification_id}", tags=["verifications"], response_model=schemas.VerificationWithAccount)
 async def get_verification(verification_id: int, db: Session = Depends(get_db)):
     return crud.get_verification(db, verification_id=verification_id)
     
-@router.get("/verifications/get_by_account/{account_id}", tags=["verifications"], response_model=List[schemas.Verification])
+@router.get("/verifications/get_by_account/{account_id}", tags=["verifications"], response_model=List[schemas.VerificationWithAccount])
 async def get_account_verifications(account_id: int, db: Session = Depends(get_db)):
     return crud.get_account_verifications(db, account_id = account_id)

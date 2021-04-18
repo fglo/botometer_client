@@ -17,11 +17,11 @@ def get_account_by_accounturl(db: Session, url: str):
     return db.query(models.Account).filter(models.Account.url == url).first()
 
 
-def get_accounts(db: Session, skip: int = 0, limit: int = 100):
+def get_accounts(db: Session, skip: int = 0, limit: int = 10000):
     return db.query(models.Account).filter(models.Account.is_active == True).offset(skip).limit(limit).all()
 
 
-def get_archived_accounts(db: Session, skip: int = 0, limit: int = 100):
+def get_archived_accounts(db: Session, skip: int = 0, limit: int = 10000):
     return db.query(models.Account).filter(models.Account.is_active == False).offset(skip).limit(limit).all()
 
 
@@ -58,7 +58,11 @@ def restore_account(db: Session, account_id: int):
     return db_account.id
 
 
-def get_account_verifications(db: Session, account_id: int, skip: int = 0, limit: int = 100):
+def get_verifications(db: Session, skip: int = 0, limit: int = 10000):
+    return db.query(models.Verification).offset(skip).limit(limit).all()
+
+
+def get_account_verifications(db: Session, account_id: int, skip: int = 0, limit: int = 10000):
     return db.query(models.Verification).filter(models.Verification.account_id == account_id).offset(skip).limit(limit).all()
 
 
