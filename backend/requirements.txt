@@ -1,6 +1,6 @@
 fastapi
 uvicorn
-owlready2
+botometer
 pydantic
 typing
 aiofiles
