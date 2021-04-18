@@ -6,11 +6,36 @@
     <title>Accounts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="{{ url_for('css', path='uikit.min.css') }}" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/uikit@3.6.19/dist/css/uikit.min.css"
+    />
     <link
       rel="stylesheet"
       href="https://cdn.datatables.net/1.10.24/css/dataTables.uikit.min.css"
     />
+    <style>
+      pre {
+        outline: 1px solid #ccc;
+        padding: 5px;
+        margin: 5px;
+      }
+      .string {
+        color: green;
+      }
+      .number {
+        color: darkorange;
+      }
+      .boolean {
+        color: blue;
+      }
+      .null {
+        color: magenta;
+      }
+      .key {
+        color: red;
+      }
+    </style>
   </head>
 
   <body>
@@ -18,10 +43,13 @@
       <div class="uk-navbar-left">
         <a href="" class="uk-navbar-item uk-logo"></a>
         <ul class="uk-navbar-nav">
-          <li class="uk-active">
+          <li>
             <a href="/views/accounts">accounts</a>
           </li>
           <li>
+            <a href="/views/archive">archive</a>
+          </li>
+          <li class="uk-active">
             <a href="/views/verifications">verifications</a>
           </li>
         </ul>
@@ -35,63 +63,28 @@
       </div>
     </div>
 
-    <div class="uk-container">
+    <div class="uk-container uk-margin-top" style="max-width: 90%">
       <div class="uk-margin uk-section uk-section-default" uk-grid>
-        <div
-          class="uk-card uk-card-hover uk-card-default uk-card-body uk-width-1-1 uk-padding-small"
-        >
-          <form id="form-add-account">
-            <div uk-grid>
-              <div>
-                <input
-                  class="uk-input uk-form-width-medium"
-                  type="text"
-                  placeholder="account address"
-                  name="url"
-                  id="url"
-                />
-              </div>
-              <div>
-                <input
-                  class="uk-input uk-form-width-medium"
-                  type="text"
-                  placeholder="account name"
-                  name="username"
-                  id="username"
-                />
-              </div>
-              <div>
-                <input
-                  class="uk-input uk-form-width-medium"
-                  type="text"
-                  placeholder="first name"
-                  name="firstname"
-                  id="firstname"
-                />
-              </div>
-              <div>
-                <input
-                  class="uk-input uk-form-width-medium"
-                  type="text"
-                  placeholder="last name"
-                  name="lastname"
-                  id="lastname"
-                />
-              </div>
-              <div>
-                <button type="button" class="uk-button uk-button-primary" id="bttn-add-account">
-                  Dodaj
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
         <div
           class="uk-card uk-card-hover uk-card-default uk-card-body uk-width-1-1"
         >
-          <h3 class="uk-card-title">accounts</h3>
+          <div class="uk-gird uk-grid-small uk-margin-bottom" uk-grid>
+            <div class="uk-width-5-6">
+              <h3 class="uk-card-title">verifications</h3>
+            </div>
+            <div class="uk-width-1-6">
+              <button
+                id="bttn-restore-many"
+                type="button"
+                class="uk-button uk-button-primary uk-align-right"
+                disabled
+              >
+                Restore
+              </button>
+            </div>
+          </div>
           <table
-            id="accounts-table"
+            id="verifications-table"
             class="uk-table uk-table-hover display"
             width="100%"
           ></table>
@@ -99,12 +92,31 @@
       </div>
     </div>
 
+    <div id="modal-verification-json-result" uk-modal>
+      <div class="uk-modal-dialog">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="uk-modal-header">
+            <h2 id="modal-title" class="uk-modal-title">Verification Result</h2>
+        </div>
+        <div id="modal-body" class="uk-modal-body"></div>
+        <div class="uk-modal-footer uk-text-right">
+          <button
+            class="uk-button uk-button-default uk-modal-close"
+            type="button"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="{{ url_for('js', path='uikit.min.js') }}"></script>
-    <script src="{{ url_for('js', path='uikit-icons.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.19/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.19/dist/js/uikit-icons.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.uikit.min.js "></script>
 
-    <script src="{{ url_for('js', path='views/accounts.js') }}"></script>
+    <script src="{{ url_for('js', path='shared/datatables_definitions.js') }}"></script>
+    <script src="{{ url_for('js', path='views/verifications.js') }}"></script>
   </body>
 </html>

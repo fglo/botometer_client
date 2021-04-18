@@ -16,7 +16,7 @@ from sqlalchemy.orm import Session
 from .database import crud, models, schemas
 from .database.database import SessionLocal, engine
 
-from .routers import accounts, views
+from .routers import accounts, verifications, views
 
 def create_app():
 
@@ -26,6 +26,7 @@ def create_app():
     app.mount("/css", StaticFiles(directory="frontend/css"), name="css")
     app.mount("/js", StaticFiles(directory="frontend/js"), name="js")
     app.include_router(accounts.router)
+    app.include_router(verifications.router)
     app.include_router(views.router)
 
     @app.middleware("http")

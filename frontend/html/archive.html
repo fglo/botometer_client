@@ -6,7 +6,10 @@
     <title>Accounts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="{{ url_for('css', path='uikit.min.css') }}" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/uikit@3.6.19/dist/css/uikit.min.css"
+    />
     <link
       rel="stylesheet"
       href="https://cdn.datatables.net/1.10.24/css/dataTables.uikit.min.css"
@@ -23,6 +26,9 @@
           </li>
           <li class="uk-active">
             <a href="/views/archive">archive</a>
+          </li>
+          <li>
+            <a href="/views/verifications">verifications</a>
           </li>
         </ul>
       </div>
@@ -45,10 +51,12 @@
               <h3 class="uk-card-title">archived accounts</h3>
             </div>
             <div class="uk-width-1-6">
-              <button id="bttn-restore-many"
+              <button
+                id="bttn-restore-many"
                 type="button"
                 class="uk-button uk-button-primary uk-align-right"
-                disabled>
+                disabled
+              >
                 Restore
               </button>
             </div>
@@ -63,8 +71,8 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="{{ url_for('js', path='uikit.min.js') }}"></script>
-    <script src="{{ url_for('js', path='uikit-icons.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.19/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.19/dist/js/uikit-icons.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.uikit.min.js "></script>
 

@@ -6,7 +6,10 @@
     <title>Accounts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="{{ url_for('css', path='uikit.min.css') }}" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/uikit@3.6.19/dist/css/uikit.min.css"
+    />
     <link
       rel="stylesheet"
       href="https://cdn.datatables.net/1.10.24/css/dataTables.uikit.min.css"
@@ -23,6 +26,9 @@
           </li>
           <li>
             <a href="/views/archive">archive</a>
+          </li>
+          <li>
+            <a href="/views/verifications">verifications</a>
           </li>
         </ul>
       </div>
@@ -98,10 +104,12 @@
               <h3 class="uk-card-title">accounts</h3>
             </div>
             <div class="uk-width-1-6">
-              <button id="bttn-verify-many"
+              <button
+                id="bttn-verify-many"
                 type="button"
                 class="uk-button uk-button-primary uk-align-right"
-                disabled>
+                disabled
+              >
                 Verify
               </button>
             </div>
@@ -115,9 +123,205 @@
       </div>
     </div>
 
+    <div id="modal-account-details" uk-modal>
+      <div class="uk-modal-body uk-modal-dialog uk-width-1-3">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="uk-modal-header">
+          <h2 id="username" class="uk-modal-title">{{ username }}</h2>
+        </div>
+        <div class="uk-modal-body">
+          <table class="uk-table uk-table-small">
+            <tbody>
+              <tr>
+                <td class="uk-table-shrink uk-text-nowrap">Username:</td>
+                <td class="uk-text-nowrap">
+                  <b id="username">{{username}}</b>
+                </td>
+              </tr>
+              <tr>
+                <td class="uk-table-shrink uk-text-nowrap">Address:</td>
+                <td class="uk-text-nowrap"><b id="url">{{url}}</b></td>
+              </tr>
+              <tr>
+                <td class="uk-table-shrink uk-text-nowrap">First Name:</td>
+                <td class="uk-text-nowrap">
+                  <b id="firstname">{{firstname}}</b>
+                </td>
+              </tr>
+              <tr>
+                <td class="uk-table-shrink uk-text-nowrap">Last Name:</td>
+                <td class="uk-text-nowrap">
+                  <b id="lastname">{{lastname}}</b>
+                </td>
+              </tr>
+              <tr>
+                <td class="uk-table-shrink uk-text-nowrap">
+                  Last Verification:
+                </td>
+                <td class="uk-text-nowrap">
+                  <b id="last-verification">{{last_verification}}</b>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div
+            class="uk-width-1-1 uk-margin"
+            style="border-bottom: 1px solid #e5e5e5"
+          ></div>
+
+          <table id="no-timeline-table" class="uk-table uk-table-small">
+            <tbody>
+              <tr>
+                <td class="uk-table-shrink uk-text-nowrap">
+                  <span uk-tooltip="Account has no tweets to analyze."
+                    >No Timeline:</span
+                  >
+                </td>
+                <td class="uk-text-nowrap">
+                  <span id="bot-no-timeline" class="lbl-is-account-fake uk-label"
+                    >True</span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table id="bot-table" class="uk-table uk-table-small">
+            <tbody>
+              <tr hidden>
+                <td class="uk-table-shrink uk-text-nowrap">
+                  <span uk-tooltip="Overall probability that account is a bot"
+                    >No Timeline:</span
+                  >
+                </td>
+                <td class="uk-text-nowrap">
+                  <span id="bot-no-timeline" class="lbl-is-account-fake uk-label"
+                    >True</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="uk-table-shrink uk-text-nowrap">
+                  <span uk-tooltip="Overall probability that account is a bot"
+                    >Overall:</span
+                  >
+                </td>
+                <td class="uk-text-nowrap">
+                  <span id="bot-overall" class="lbl-is-account-fake uk-label"
+                    >True</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="uk-table-shrink uk-text-nowrap">
+                  <span
+                    class="uk-width-1-3"
+                    uk-tooltip="Bot purchased to increase follower counts"
+                    >Fake Follower:</span
+                  >
+                </td>
+                <td class="uk-text-nowrap">
+                  <span
+                    id="bot-fake-follower"
+                    class="lbl-is-account-fake uk-label"
+                    >True</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="uk-table-shrink uk-text-nowrap">
+                  <span class="uk-width-1-3" uk-tooltip="Bot from botwiki.org"
+                    >Self Declared:</span
+                  >
+                </td>
+                <td class="uk-text-nowrap">
+                  <span
+                    id="bot-self-declared"
+                    class="lbl-is-account-fake uk-label"
+                    >True</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="uk-table-shrink uk-text-nowrap">
+                  <span
+                    class="uk-width-1-3"
+                    uk-tooltip="Manually labeled political bot and/or account involved in follow trains that systematically delete content"
+                    >Astroturf:</span
+                  >
+                </td>
+                <td class="uk-text-nowrap">
+                  <span id="bot-astroturf" class="lbl-is-account-fake uk-label"
+                    >True</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="uk-table-shrink uk-text-nowrap">
+                  <span
+                    class="uk-width-1-3"
+                    uk-tooltip="Account labeled as spambot from several datasets"
+                    >Spammer:</span
+                  >
+                </td>
+                <td class="uk-text-nowrap">
+                  <span id="bot-spammer" class="lbl-is-account-fake uk-label"
+                    >True</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="uk-table-shrink uk-text-nowrap">
+                  <span
+                    class="uk-width-1-3"
+                    uk-tooltip="Bot that posts using cashtags"
+                    >Financial:</span
+                  >
+                </td>
+                <td class="uk-text-nowrap">
+                  <span id="bot-financial" class="lbl-is-account-fake uk-label"
+                    >True</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="uk-table-shrink uk-text-nowrap">
+                  <span
+                    class="uk-width-1-3"
+                    uk-tooltip="Miscellaneous other bot obtained from manual annotation, user feedback, etc."
+                    >Other:</span
+                  >
+                </td>
+                <td class="uk-text-nowrap">
+                  <span id="bot-other" class="lbl-is-account-fake uk-label"
+                    >True</span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div
+            class="uk-width-1-1 uk-margin"
+            style="border-bottom: 1px solid #e5e5e5"
+          ></div>
+
+          <div class="uk-text-right">
+            <button
+              class="uk-button uk-button-default uk-modal-close"
+              type="button"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="{{ url_for('js', path='uikit.min.js') }}"></script>
-    <script src="{{ url_for('js', path='uikit-icons.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.19/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.19/dist/js/uikit-icons.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.uikit.min.js "></script>
 
