@@ -14,6 +14,8 @@ from typing import List
 
 from sqlalchemy.orm import Session
 
+from .config import settings
+
 from .database import crud, models, schemas
 from .database.database import SessionLocal, engine
 
@@ -54,4 +56,4 @@ def create_app():
 app = create_app()
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host=settings.app_host, port=settings.app_port)
