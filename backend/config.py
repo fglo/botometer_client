@@ -9,7 +9,7 @@ class TwitterSettings(BaseSettings):
 class Settings(BaseSettings):
     sql_connection_string: str = "sqlite:///./backend/database/TWI.db"
     rapidapi_key: str = "d734e91293mshe56e194e43ce8f4p169581jsna5ce09b0ee70"
-    app_host: str = "0.0.0.0"
+    app_host: str = "127.0.0.1"
     app_port: int = 8000
     twitter_app_auth: TwitterSettings = TwitterSettings()
 
