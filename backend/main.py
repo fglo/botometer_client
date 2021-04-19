@@ -1,8 +1,9 @@
 import uvicorn
 from fastapi import Depends, FastAPI, APIRouter, HTTPException, Request, Response
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from pydantic import BaseModel
 
@@ -50,7 +51,11 @@ def create_app():
     @app.on_event("shutdown")
     async def shutdown():
         pass
-    
+
+    @app.exception_handler(StarletteHTTPException)
+    async def custom_http_exception_handler(request, exc):
+        return RedirectResponse(url='/views/accounts')
+
     return app
 
 app = create_app()
