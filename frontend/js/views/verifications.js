@@ -30,12 +30,6 @@ $("#verifications-table").on("click", "a.verification-details", function () {
   UIkit.modal(modal).show();
 });
 
-$(document).ready(function () {
-  setInterval(function () {
-    table.ajax.reload();
-  }, 5000);
-});
-
 function syntaxHighlight(json) {
   if (typeof json != 'string') {
        json = JSON.stringify(json, undefined, '\t');
@@ -57,3 +51,11 @@ function syntaxHighlight(json) {
       return '<span class="' + cls + '">' + match + '</span>';
   }).replace(/(?:\r\n|\r|\n)/g, '<br>').replace(/(?:\t)/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
 }
+
+$(document).ready(function () {
+  $("#navbar-item-verifications").addClass("uk-active");
+
+  setInterval(function () {
+    table.ajax.reload();
+  }, 5000);
+});

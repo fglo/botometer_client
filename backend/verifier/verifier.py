@@ -2,15 +2,16 @@ import botometer
 import asyncio
 import json
 
+from ..config import settings
 from ..database import crud, models, schemas
 from ..database.database import SessionLocal, engine
 
-rapidapi_key = "d734e91293mshe56e194e43ce8f4p169581jsna5ce09b0ee70"
+rapidapi_key = settings.rapidapi_key
 twitter_app_auth = {
-    'consumer_key': 'mFsFjY2TIehNblYqeiv9XH5sR',
-    'consumer_secret': '5JyK3kjzwjuIS9ZGQ9uiBySJMULNDhjvcmKyMjBLLWRVqielWT',
-    'access_token': '1262265835504230400-f8Zmdljn358ACJORTc1KC2ccqWT1AU',
-    'access_token_secret': 'yE3vZCkdF2QGWqzWByALcgFawiR4TnBUbFYxFrxo6BL5W',
+    'consumer_key': settings.twitter_app_auth.consumer_key,
+    'consumer_secret': settings.twitter_app_auth.consumer_secret,
+    'access_token': settings.twitter_app_auth.access_token,
+    'access_token_secret': settings.twitter_app_auth.access_token_secret,
   }
 bom = botometer.Botometer(wait_on_ratelimit=True,
                           rapidapi_key=rapidapi_key,
