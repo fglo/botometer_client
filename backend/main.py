@@ -1,3 +1,4 @@
+import uvicorn
 from fastapi import Depends, FastAPI, APIRouter, HTTPException, Request, Response
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
@@ -50,4 +51,6 @@ def create_app():
     
     return app
     
-app = create_app()
+if __name__ == "__main__":
+    app = create_app()
+    uvicorn.run(app, host="0.0.0.0", port=8000)
