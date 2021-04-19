@@ -4,4 +4,6 @@
 pip install -r backend/requirements.txt
 
 ## RUN:
-uvicorn backend.main:app --reload
+python -m backend.main
+
+(lub: uvicorn backend.main:app --reload)
