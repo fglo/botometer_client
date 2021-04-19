@@ -1,3 +1,4 @@
+import os
 import uvicorn
 from fastapi import Depends, FastAPI, APIRouter, HTTPException, Request, Response
 from fastapi.responses import HTMLResponse, RedirectResponse
@@ -61,4 +62,7 @@ def create_app():
 app = create_app()
 
 if __name__ == "__main__":
-    uvicorn.run(app, host=settings.app_host, port=settings.app_port)
+    if os.getenv('ENVIRONMENT') == "DEBUG":
+        uvicorn.run("backend.main:app", host=settings.app_host, port=settings.app_port, reload=True)
+    else:
+        uvicorn.run("backend.main:app", host=settings.app_host, port=settings.app_port)

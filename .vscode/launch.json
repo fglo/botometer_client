@@ -5,7 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Module",
+            "name": "Debug",
+            "type": "python",
+            "request": "launch",
+            "module": "backend.main",
+            "console": "integratedTerminal",
+            "env": {
+                "ENVIRONMENT": "DEBUG"
+            }
+        },
+        {
+            "name": "Release",
             "type": "python",
             "request": "launch",
             "module": "backend.main",
