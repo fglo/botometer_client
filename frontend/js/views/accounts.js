@@ -53,7 +53,7 @@ $("#accounts-table").on("click", "a.account-verify", function () {
 
 $("#accounts-table").on("click", "a.account-details", function () {
   var row = table.row($(this).parents("tr")).data();
-  if(row["verified"] === false) {
+  if (row["verified"] === false) {
     UIkit.notification({
       message: "The account hasn't been verified yet.",
       status: "danger",
@@ -129,7 +129,7 @@ $("#accounts-table").on("click", "a.account-details", function () {
 });
 
 function addLabelInAccountDetails(label, value) {
-  value = Boolean(value)
+  value = Boolean(value);
   label.removeClass("uk-label-danger");
   label.html(String(value));
   if (value === true) {
@@ -237,6 +237,8 @@ function getFormData($form) {
 }
 
 $(document).ready(function () {
+  $("#navbar-item-accounts").addClass("uk-active");
+
   setInterval(function () {
     table.ajax.reload();
   }, 5000);

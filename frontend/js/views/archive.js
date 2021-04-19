@@ -85,6 +85,8 @@ $(document).on("click", "#bttn-restore-many", function () {
 });
 
 $(document).ready(function () {
+  $("#navbar-item-archive").addClass("uk-active");
+
   setInterval(function () {
     table.ajax.reload();
   }, 5000);

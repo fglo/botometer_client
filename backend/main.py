@@ -22,9 +22,10 @@ def create_app():
 
     models.Base.metadata.create_all(bind=engine)
 
-    app = FastAPI(title="Weryfikacja kont twittera",version="0.0.1")
+    app = FastAPI(title="Weryfikacja kont twittera", version="0.0.1")
     app.mount("/css", StaticFiles(directory="frontend/css"), name="css")
     app.mount("/js", StaticFiles(directory="frontend/js"), name="js")
+    app.mount("/lib", StaticFiles(directory="frontend/lib"), name="lib")
     app.include_router(accounts.router)
     app.include_router(verifications.router)
     app.include_router(views.router)

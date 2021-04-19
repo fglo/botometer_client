@@ -6,14 +6,7 @@
     <title>Accounts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/uikit@3.6.19/dist/css/uikit.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.datatables.net/1.10.24/css/dataTables.uikit.min.css"
-    />
+    {% include 'shared/head_imports.html' %}
     <style>
       pre {
         outline: 1px solid #ccc;
@@ -39,29 +32,7 @@
   </head>
 
   <body>
-    <div class="uk-navbar-container" uk-navbar>
-      <div class="uk-navbar-left">
-        <a href="" class="uk-navbar-item uk-logo"></a>
-        <ul class="uk-navbar-nav">
-          <li>
-            <a href="/views/accounts">accounts</a>
-          </li>
-          <li>
-            <a href="/views/archive">archive</a>
-          </li>
-          <li class="uk-active">
-            <a href="/views/verifications">verifications</a>
-          </li>
-        </ul>
-      </div>
-      <div class="uk-navbar-right">
-        <ul class="uk-navbar-nav">
-          <li>
-            <a href="/views/accounts">{{ username }}</a>
-          </li>
-        </ul>
-      </div>
-    </div>
+    {% include 'shared/navbar.html' %}
 
     <div class="uk-container uk-margin-top" style="max-width: 90%">
       <div class="uk-margin uk-section uk-section-default" uk-grid>
@@ -92,29 +63,9 @@
       </div>
     </div>
 
-    <div id="modal-verification-json-result" uk-modal>
-      <div class="uk-modal-dialog">
-        <button class="uk-modal-close-default" type="button" uk-close></button>
-        <div class="uk-modal-header">
-            <h2 id="modal-title" class="uk-modal-title">Verification Result</h2>
-        </div>
-        <div id="modal-body" class="uk-modal-body"></div>
-        <div class="uk-modal-footer uk-text-right">
-          <button
-            class="uk-button uk-button-default uk-modal-close"
-            type="button"
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
-    </div>
+    {% include 'modals/verification_results.html' %}
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.19/dist/js/uikit.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.19/dist/js/uikit-icons.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.uikit.min.js "></script>
+    {% include 'shared/bottom_imports.html' %}
 
     <script src="{{ url_for('js', path='shared/datatables_definitions.js') }}"></script>
     <script src="{{ url_for('js', path='views/verifications.js') }}"></script>
