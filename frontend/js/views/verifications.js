@@ -1,7 +1,7 @@
 var url = "/verifications/getall"
 const urlParams = new URLSearchParams(window.location.search);
 const account_id = urlParams.get('account_id');
-if(account_id) {
+if(account_id && account_id > 0) {
   url = `/verifications/get_by_account/${account_id}`
 }
 
