@@ -254,7 +254,7 @@ function getFormData($form) {
 
 $('#bttn-show-verifications').click(function() {
   account_id
-  window.location.href = `/views/verifications/${account_id}?account_id=${account_id}`;
+  window.location.href = `/views/verifications?account_id=${account_id}`;
 });
 
 $(document).ready(function () {

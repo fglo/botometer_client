@@ -26,10 +26,9 @@ async def view_archive(request: Request):
     return templates.TemplateResponse(globals()['archive_list_template'], {"request": request})
 
 @router.get("/views/verifications", response_class=HTMLResponse, tags=["views"]) 
-async def view_all_verifications(request: Request):
-    return templates.TemplateResponse(globals()['verification_list_template'], {"request": request})
-    
-@router.get("/views/verifications/{account_id}", response_class=HTMLResponse, tags=["views"])
-async def view_all_account_verifications(request: Request, account_id : int, db: Session = Depends(get_db)):
+async def view_all_verifications(request: Request, account_id : int, db: Session = Depends(get_db)):
     account = crud.get_account(db, account_id=account_id)
-    return templates.TemplateResponse(globals()['verification_list_template'], {"request": request, "account": account})
+    if account:
+        return templates.TemplateResponse(globals()['verification_list_template'], {"request": request, "account": account})
+    else:
+        return templates.TemplateResponse(globals()['verification_list_template'], {"request": request})
