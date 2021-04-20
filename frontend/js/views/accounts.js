@@ -215,6 +215,12 @@ $(document).on("click", "#bttn-verify-many", function () {
   });
 });
 
+function isTwitterHandle(handle) { 
+  if (handle.match(/^((https?:\/\/)?(www\.)?twitter\.com\/)?(@|#!\/)?([A-Za-z0-9_]{1,15})(\/([-a-z]{1,20}))?$/i)) 
+    return true;
+  return false;
+}
+
 var urlObj = $("#form-add-account #url");
 var usernameObj = $("#form-add-account #username");
 
@@ -224,9 +230,8 @@ urlObj.on("input", function () {
 
 urlObj.change(function () {
   let address = $(this).val();
-  if (address && address.trim()) {
+  if (isTwitterHandle(address)) {
     var url = new URL(address);
-    console.log(url);
     usernameObj.val(url.pathname.substring(1));
   }
 });
@@ -238,14 +243,26 @@ usernameObj.on("input", function () {
 $(document).on("click", "#bttn-add-account", function () {
   var error = false;
   urlObj.removeClass("uk-form-danger");
-  if (!urlObj.val() || urlObj.val() === "") {
+  let url = urlObj.val();
+  if (!isTwitterHandle(url)) {
     urlObj.addClass("uk-form-danger");
     error = true;
+    UIkit.notification({
+      message: "Entered Account Addres is not a valid twitter handle url.",
+      status: "danger",
+      pos: "top-right",
+    });
   }
   usernameObj.removeClass("uk-form-danger");
-  if (!usernameObj.val() || urlObj.val() === "") {
+  let username = urlObj.val();
+  if (!username.match(/^(@|#!\/)?[-_A-Za-z0-9]{1,15}$/i)) {
     usernameObj.addClass("uk-form-danger");
     error = true;
+    UIkit.notification({
+      message: "Entered Account Name is not a valid twitter handle.",
+      status: "danger",
+      pos: "top-right",
+    });
   }
   if (error == true) {
     return;
