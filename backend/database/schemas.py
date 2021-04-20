@@ -25,6 +25,7 @@ class Verification(VerificationBase):
     id_str: Optional[str]
     verification_result_json: Optional[str]
     no_timeline: Optional[bool]
+    account_doesnt_exist: Optional[bool]
 
     class Config:
         orm_mode = True

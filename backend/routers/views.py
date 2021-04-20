@@ -3,6 +3,11 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
+from sqlalchemy.orm import Session
+
+from ..database import crud, models, schemas
+from ..dependencies import get_db
+
 router = APIRouter()
 
 templates = Jinja2Templates(directory="frontend/html")
@@ -25,5 +30,6 @@ async def view_all_verifications(request: Request):
     return templates.TemplateResponse(globals()['verification_list_template'], {"request": request})
     
 @router.get("/views/verifications/{account_id}", response_class=HTMLResponse, tags=["views"])
-async def view_all_account_verifications(request: Request, account_id : int):
-    return templates.TemplateResponse(globals()['verification_list_template'], {"request": request, "account_id": account_id})
+async def view_all_account_verifications(request: Request, account_id : int, db: Session = Depends(get_db)):
+    account = crud.get_account(db, account_id=account_id)
+    return templates.TemplateResponse(globals()['verification_list_template'], {"request": request, "account": account})

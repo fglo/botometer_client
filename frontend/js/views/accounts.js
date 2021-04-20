@@ -1,3 +1,5 @@
+var account_id = 0;
+
 var table = $("#accounts-table").DataTable({
   ajax: {
     url: "/accounts/getall",
@@ -53,6 +55,7 @@ $("#accounts-table").on("click", "a.account-verify", function () {
 
 $("#accounts-table").on("click", "a.account-details", function () {
   var row = table.row($(this).parents("tr")).data();
+  account_id = row["id"];
   if (row["verified"] === false) {
     UIkit.notification({
       message: "The account hasn't been verified yet.",
@@ -74,9 +77,32 @@ $("#accounts-table").on("click", "a.account-details", function () {
 
       var last_verification = data["last_verification"];
 
-      if (last_verification["no_timeline"] !== true) {
+      if (last_verification["no_timeline"] === true) {
+        $("#bot-table", modal).hide();
+        $("#no-timeline-table", modal).show();
+        $("#account_doesnt_exist-table", modal).hide();
+
+        let label = $("#bot-no-timeline", modal);
+        label.removeClass("uk-label-warning");
+        label.html(last_verification["no_timeline"]);
+        if (last_verification["no_timeline"] === true) {
+          label.addClass("uk-label-warning");
+        }
+      } else if (last_verification["account_doesnt_exist"] === true) {
+        $("#bot-table", modal).hide();
+        $("#no-timeline-table", modal).hide();
+        $("#account_doesnt_exist-table", modal).show();
+
+        let label = $("#bot-account_doesnt_exist", modal);
+        label.removeClass("uk-label-warning");
+        label.html(last_verification["account_doesnt_exist"]);
+        if (last_verification["account_doesnt_exist"] === true) {
+          label.addClass("uk-label-warning");
+        }
+      } else {
         $("#bot-table", modal).show();
         $("#no-timeline-table", modal).hide();
+        $("#account_doesnt_exist-table", modal).hide();
 
         addLabelInAccountDetails(
           $("#bot-overall", modal),
@@ -106,16 +132,6 @@ $("#accounts-table").on("click", "a.account-details", function () {
           $("#bot-other", modal),
           data["last_verification"]["other"]
         );
-      } else {
-        $("#bot-table", modal).hide();
-        $("#no-timeline-table", modal).show();
-
-        let label = $("#bot-no-timeline", modal);
-        label.removeClass("uk-label-warning");
-        label.html(last_verification["no_timeline"]);
-        if (last_verification["no_timeline"] === true) {
-          label.addClass("uk-label-warning");
-        }
       }
       UIkit.modal(modal).show();
     })
@@ -235,6 +251,11 @@ function getFormData($form) {
 
   return JSON.stringify(indexed_array);
 }
+
+$('#bttn-show-verifications').click(function() {
+  account_id
+  window.location.href = `/views/verifications/${account_id}?account_id=${account_id}`;
+});
 
 $(document).ready(function () {
   $("#navbar-item-accounts").addClass("uk-active");

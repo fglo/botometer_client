@@ -37,6 +37,8 @@ var accountColumns = [
         } else {
           if (row["last_verification"]["no_timeline"]) {
             return `<span class="uk-label uk-label-warning">No Timeline</span>`;
+          } if (row["last_verification"]["account_doesnt_exist"]) {
+            return `<span class="uk-label uk-label-warning">Doesn't Exist</span>`;
           } else {
             return `<span class="uk-label uk-label-danger">${data}</span>`;
           }
@@ -56,15 +58,19 @@ var verificationColumns = [
   { data: "id_str", title: "Twitter Account Id" },
   {
     data: "overall",
-    title: "overall",
+    title: "Status",
     render: function (data, type, row) {
       if (data === true) {
-        return `<span class="uk-label uk-label-danger">${data}</span>`;
+        return `<span class="uk-label uk-label-danger">Potentially Fake</span>`;
       } else {
         if (row["no_timeline"]) {
           return `<span class="uk-label uk-label-warning">No Timeline</span>`;
+        } else if (row["account_doesnt_exist"]) {
+          return `<span class="uk-label uk-label-warning">Doesn't Exist</span>`;
+        } else if (!row["verification_result_json"]) {
+          return `<span class="uk-label">No Response</span>`;
         } else {
-          return `<span class="uk-label">${data}</span>`;
+          return `<span class="uk-label uk-label-success">OK</span>`;
         }
       }
     },

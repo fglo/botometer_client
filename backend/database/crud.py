@@ -96,6 +96,7 @@ def update_account_verification(db: Session, verification: schemas.Verification)
     db_verification.screen_name = verification.screen_name
     db_verification.verification_result_json = verification.verification_result_json
     db_verification.no_timeline = verification.no_timeline
+    db_verification.account_doesnt_exist = verification.account_doesnt_exist
 
     db.commit()
     db.refresh(db_verification)
