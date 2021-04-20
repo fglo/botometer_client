@@ -5,6 +5,7 @@ var table = $("#accounts-table").DataTable({
     url: "/accounts/getall",
     dataSrc: "",
   },
+  stateSave: true,
   order: [[0, "asc"]],
   responsive: true,
   columns: accountColumns,
@@ -157,7 +158,7 @@ $("#accounts-table").on("click", "a.account-delete", function () {
   var row = table.row($(this).parents("tr")).data();
   $.get(`/accounts/archive/${row["id"]}`)
     .done(function () {
-      table.ajax.reload();
+      table.ajax.reload(null, false);
       UIkit.notification({
         message: "Account archived!",
         status: "success",
@@ -195,7 +196,7 @@ $(document).on("click", "#bttn-verify-many", function () {
     url: "/accounts/verify",
     data: JSON.stringify(accountsSelected),
     success: function () {
-      table.ajax.reload();
+      table.ajax.reload(null, false);
       UIkit.notification({
         message: "Verification started!",
         status: "success",
@@ -216,7 +217,7 @@ $(document).on("click", "#bttn-verify-many", function () {
 });
 
 function isTwitterHandle(handle) { 
-  if (handle.match(/^((https?:\/\/)?(www\.)?twitter\.com\/)?(@|#!\/)?([A-Za-z0-9_]{1,15})(\/([-a-z]{1,20}))?$/i)) 
+  if (handle.match(/^((https?:\/\/)?(www\.)?twitter\.com\/)?(@|#!\/)?([A-Za-z0-9_]{1,15})$/i)) 
     return true;
   return false;
 }
@@ -248,18 +249,18 @@ $(document).on("click", "#bttn-add-account", function () {
     urlObj.addClass("uk-form-danger");
     error = true;
     UIkit.notification({
-      message: "Entered Account Addres is not a valid twitter handle url.",
+      message: "Entered Account Addres is not a valid twitter handle url. The expected format: https://twitter.com/twitteraccountname",
       status: "danger",
       pos: "top-right",
     });
   }
   usernameObj.removeClass("uk-form-danger");
-  let username = urlObj.val();
-  if (!username.match(/^(@|#!\/)?[-_A-Za-z0-9]{1,15}$/i)) {
+  let username = usernameObj.val();
+  if (!username.match(/^@?[A-Za-z0-9_]{1,20}$/i)) {
     usernameObj.addClass("uk-form-danger");
     error = true;
     UIkit.notification({
-      message: "Entered Account Name is not a valid twitter handle.",
+      message: "Entered Account Name is not a valid twitter handle. Twitter handle can't be longer than 15 characters and can't contain characters other than alphanumerical and underscores.",
       status: "danger",
       pos: "top-right",
     });
@@ -273,7 +274,7 @@ $(document).on("click", "#bttn-add-account", function () {
     url: "/accounts/add",
     data: getFormData($("#form-add-account")),
     success: function () {
-      table.ajax.reload();
+      table.ajax.reload(null, false);
       UIkit.notification({
         message: "Adding was successfull!",
         status: "success",
@@ -313,6 +314,6 @@ $(document).ready(function () {
   $("#navbar-item-accounts").addClass("uk-active");
 
   setInterval(function () {
-    table.ajax.reload();
+    table.ajax.reload(null, false);
   }, 5000);
 });

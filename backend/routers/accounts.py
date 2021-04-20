@@ -15,20 +15,20 @@ router = APIRouter()
 async def get_all_accounts(db: Session = Depends(get_db)):
     accounts = crud.get_accounts(db)
     for account in accounts:
-        account.last_verification = crud.get_last_account_verification(db, account_id = account.id)
+        account.last_verification = crud.get_last_finished_account_verification(db, account_id = account.id)
     return accounts
     
 @router.get("/accounts/getallarchived", tags=["accounts"], response_model=List[schemas.AccountWithLastVerification])
 async def get_all_archived_accounts(db: Session = Depends(get_db)):
     accounts = crud.get_archived_accounts(db)
     for account in accounts:
-        account.last_verification = crud.get_last_account_verification(db, account_id = account.id)
+        account.last_verification = crud.get_last_finished_account_verification(db, account_id = account.id)
     return accounts
     
 @router.get("/accounts/get/{account_id}", tags=["accounts"], response_model=schemas.AccountWithLastVerification)
 async def get_account(account_id: int, db: Session = Depends(get_db)):
     account = crud.get_account(db, account_id=account_id)
-    account.last_verification = crud.get_last_account_verification(db, account_id = account.id)
+    account.last_verification = crud.get_last_finished_account_verification(db, account_id = account.id)
     return account
 
 @router.get("/accounts/getmore/{account_id}", tags=["accounts"], response_model=schemas.AccountWithAllVerifications)

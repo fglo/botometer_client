@@ -3,6 +3,7 @@ var table = $("#accounts-table").DataTable({
     url: "/accounts/getallarchived",
     dataSrc: "",
   },
+  stateSave: true,
   order: [[0, 'asc']],
   responsive: true,
   columns: accountColumns,
@@ -26,7 +27,7 @@ $("#accounts-table").on("click", "a.account-restore", function () {
   var row = table.row($(this).parents("tr")).data();
   $.get(`/accounts/restore/${row["id"]}`)
     .done(function () {
-      table.ajax.reload();
+      table.ajax.reload(null, false);
       UIkit.notification({
         message: "Account restored!",
         status: "success",
@@ -64,7 +65,7 @@ $(document).on("click", "#bttn-restore-many", function () {
     url: "/accounts/restore",
     data: JSON.stringify(accountsSelected),
     success: function () {
-      table.ajax.reload();
+      table.ajax.reload(null, false);
       UIkit.notification({
         message: "Accounts restored!",
         status: "success",
@@ -88,6 +89,6 @@ $(document).ready(function () {
   $("#navbar-item-archive").addClass("uk-active");
 
   setInterval(function () {
-    table.ajax.reload();
+    table.ajax.reload(null, false);
   }, 5000);
 });
