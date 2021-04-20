@@ -22,4 +22,7 @@ async def get_verification(verification_id: int, db: Session = Depends(get_db)):
     
 @router.get("/verifications/get_by_account/{account_id}", tags=["verifications"], response_model=List[schemas.VerificationWithAccount])
 async def get_account_verifications(account_id: int, db: Session = Depends(get_db)):
-    return crud.get_account_verifications(db, account_id = account_id)
+    verifications = crud.get_account_verifications(db, account_id = account_id)
+    if not verifications or len(verifications) == 0:
+        verifications = crud.get_verifications(db)
+    return verifications
