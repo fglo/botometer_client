@@ -215,7 +215,42 @@ $(document).on("click", "#bttn-verify-many", function () {
   });
 });
 
+var urlObj = $("#form-add-account #url");
+var usernameObj = $("#form-add-account #username");
+
+urlObj.on("input", function () {
+  $(this).removeClass("uk-form-danger");
+});
+
+urlObj.change(function () {
+  let address = $(this).val();
+  if (address && address.trim()) {
+    var url = new URL(address);
+    console.log(url);
+    usernameObj.val(url.pathname.substring(1));
+  }
+});
+
+usernameObj.on("input", function () {
+  $(this).removeClass("uk-form-danger");
+});
+
 $(document).on("click", "#bttn-add-account", function () {
+  var error = false;
+  urlObj.removeClass("uk-form-danger");
+  if (!urlObj.val() || urlObj.val() === "") {
+    urlObj.addClass("uk-form-danger");
+    error = true;
+  }
+  usernameObj.removeClass("uk-form-danger");
+  if (!usernameObj.val() || urlObj.val() === "") {
+    usernameObj.addClass("uk-form-danger");
+    error = true;
+  }
+  if (error == true) {
+    return;
+  }
+
   $.ajax({
     type: "POST",
     url: "/accounts/add",
@@ -252,8 +287,8 @@ function getFormData($form) {
   return JSON.stringify(indexed_array);
 }
 
-$('#bttn-show-verifications').click(function() {
-  account_id
+$("#bttn-show-verifications").click(function () {
+  account_id;
   window.location.href = `/views/verifications?account_id=${account_id}`;
 });
 

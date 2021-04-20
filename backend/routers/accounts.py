@@ -63,10 +63,14 @@ async def verify_accounts(account_ids: List[int], background_tasks: BackgroundTa
 
 @router.post("/accounts/add", tags=["accounts"], response_model=int)
 async def create_account(form: schemas.AccountCreate, db: Session = Depends(get_db)):
+    if form.username == '' or form.url == '':
+        raise HTTPException(status_code=400, detail="You have to specify account's address and username.")
+
     account1 = crud.get_account_by_accountname(db, username=form.username)
     account2 = crud.get_account_by_accounturl(db, url=form.url)
     if account1 or account2:
         raise HTTPException(status_code=400, detail="Account has already been added.")
+        
     account_id = crud.create_account(db, form)
     return account_id
     
