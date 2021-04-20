@@ -13,6 +13,7 @@ class VerificationCreate(VerificationBase):
 class Verification(VerificationBase):
     id: int
     account_id: int
+
     astroturf: Optional[bool]
     fake_follower: Optional[bool]
     financial: Optional[bool]
@@ -23,9 +24,11 @@ class Verification(VerificationBase):
     language: Optional[str]
     screen_name: Optional[str]
     id_str: Optional[str]
-    verification_result_json: Optional[str]
     no_timeline: Optional[bool]
     account_doesnt_exist: Optional[bool]
+
+    done: Optional[bool]
+    verification_result_json: Optional[str]
 
     class Config:
         orm_mode = True

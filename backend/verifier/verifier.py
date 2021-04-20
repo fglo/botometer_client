@@ -20,6 +20,7 @@ bom = botometer.Botometer(wait_on_ratelimit=True,
 def verify_account(username, verification_id):
     db = SessionLocal()
     try:
+        username = username.replace('@', '')
         result = bom.check_account(f'@{username}')
 
         account_verification = crud.get_verification(db, verification_id=verification_id)
@@ -39,6 +40,7 @@ def verify_account(username, verification_id):
             account_verification.screen_name = user['user_data']['screen_name']
             account_verification.id_str = user['user_data']['id_str']
             account_verification.verification_result_json = json.dumps(result)
+            account_verification.done = True
 
             verification_id = crud.update_account_verification(db, verification=account_verification)
 
@@ -51,6 +53,7 @@ def verify_account(username, verification_id):
         account_verification = crud.get_verification(db, verification_id=verification_id)
         if account_verification:
             account_verification.no_timeline = True
+            account_verification.done = True
             verification_id = crud.update_account_verification(db, verification=account_verification)
 
             account = crud.get_account(db, account_id=account_verification.account_id)
@@ -62,6 +65,7 @@ def verify_account(username, verification_id):
         account_verification = crud.get_verification(db, verification_id=verification_id)
         if account_verification:
             account_verification.account_doesnt_exist = True
+            account_verification.done = True
             verification_id = crud.update_account_verification(db, verification=account_verification)
 
             account = crud.get_account(db, account_id=account_verification.account_id)
@@ -79,7 +83,8 @@ def verify_accounts(verification_ids):
         for verification_id in verification_ids:
             account_verification = crud.get_verification(db, verification_id=verification_id)
             account = crud.get_account(db, account_id=account_verification.account_id)
-            usernames.append(f'@{account.username}')
+            username = account.username.replace('@', '')
+            usernames.append(f'@{username}')
 
         for screen_name, result in bom.check_accounts_in(usernames):
             account = crud.get_account_by_accountname(db, username=screen_name)

@@ -70,6 +70,10 @@ def get_last_account_verification(db: Session, account_id: int):
     return db.query(models.Verification).filter(models.Verification.account_id == account_id).order_by(desc(models.Verification.date)).first()
 
 
+def get_last_finished_account_verification(db: Session, account_id: int):
+    return db.query(models.Verification).filter(models.Verification.account_id == account_id).filter(models.Verification.done == True).order_by(desc(models.Verification.date)).first()
+
+
 def get_verification(db: Session, verification_id: int):
     return db.query(models.Verification).filter(models.Verification.id == verification_id).first()
 

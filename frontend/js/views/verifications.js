@@ -10,6 +10,7 @@ var table = $("#verifications-table").DataTable({
     url: url,
     dataSrc: "",
   },
+  stateSave: true,
   order: [[0, 'asc']],
   responsive: true,
   columns: verificationColumns,
@@ -63,6 +64,6 @@ $(document).ready(function () {
   $("#navbar-item-verifications").addClass("uk-active");
 
   setInterval(function () {
-    table.ajax.reload();
+    table.ajax.reload(null, false);
   }, 5000);
 });

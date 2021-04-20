@@ -19,10 +19,12 @@ class Account(Base):
     verifications = relationship("Verification", back_populates="account")
 
 class Verification(Base):
-    __tablename__ = "varifications"
+    __tablename__ = "verifications"
 
     id = Column(Integer, primary_key=True, index=True)
     account_id = Column(Integer, ForeignKey("accounts.id"))
+    date = Column(DateTime)
+
     astroturf = Column(Boolean, default=False)
     fake_follower = Column(Boolean, default=False)
     financial = Column(Boolean, default=False)
@@ -33,9 +35,10 @@ class Verification(Base):
     language = Column(String)
     screen_name = Column(String)
     id_str = Column(String)
-    verification_result_json = Column(String)
     no_timeline = Column(Boolean, default=False)
     account_doesnt_exist = Column(Boolean, default=False)
-    date = Column(DateTime)
+
+    done = Column(Boolean, default=False)
+    verification_result_json = Column(String)
 
     account = relationship("Account", back_populates="verifications")
