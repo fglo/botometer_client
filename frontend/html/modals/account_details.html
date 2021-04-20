@@ -60,6 +60,23 @@
         </tbody>
       </table>
 
+      <table id="account_doesnt_exist-table" class="uk-table uk-table-small">
+        <tbody>
+          <tr>
+            <td class="uk-table-shrink uk-text-nowrap">
+              <span uk-tooltip="Account could not be found be botometer."
+                >Account doesn't exist:</span
+              >
+            </td>
+            <td class="uk-text-nowrap">
+              <span id="bot-account_doesnt_exist" class="lbl-is-account-fake uk-label"
+                >True</span
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
       <table id="bot-table" class="uk-table uk-table-small">
         <tbody>
           <tr hidden>
@@ -177,6 +194,13 @@
       ></div>
 
       <div class="uk-text-right">
+        <button
+        id="bttn-show-verifications"
+          class="uk-button uk-button-default uk-modal-close"
+          type="button"
+        >
+          Show Verifications
+        </button>
         <button
           class="uk-button uk-button-default uk-modal-close"
           type="button"

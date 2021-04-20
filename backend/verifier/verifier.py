@@ -58,6 +58,17 @@ def verify_account(username, verification_id):
                 account.verified = True
                 account.valid = False
                 crud.update_account(db, account=account)
+    except botometer.TweepError:
+        account_verification = crud.get_verification(db, verification_id=verification_id)
+        if account_verification:
+            account_verification.account_doesnt_exist = True
+            verification_id = crud.update_account_verification(db, verification=account_verification)
+
+            account = crud.get_account(db, account_id=account_verification.account_id)
+            if account:
+                account.verified = True
+                account.valid = False
+                crud.update_account(db, account=account)
     finally:
         db.close()
 

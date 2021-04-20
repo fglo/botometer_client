@@ -1,6 +1,13 @@
+var url = "/verifications/getall"
+const urlParams = new URLSearchParams(window.location.search);
+const account_id = urlParams.get('account_id');
+if(account_id) {
+  url = `/verifications/get_by_account/${account_id}`
+}
+
 var table = $("#verifications-table").DataTable({
   ajax: {
-    url: "/verifications/getall",
+    url: url,
     dataSrc: "",
   },
   order: [[0, 'asc']],

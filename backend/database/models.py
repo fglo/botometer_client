@@ -35,6 +35,7 @@ class Verification(Base):
     id_str = Column(String)
     verification_result_json = Column(String)
     no_timeline = Column(Boolean, default=False)
+    account_doesnt_exist = Column(Boolean, default=False)
     date = Column(DateTime)
 
     account = relationship("Account", back_populates="verifications")
