@@ -1,10 +1,13 @@
+var account_id = 0;
+var account_url = 'https://twitter.com/home';
+
 var table = $("#accounts-table").DataTable({
   ajax: {
     url: "/accounts/getallarchived",
     dataSrc: "",
   },
   stateSave: true,
-  order: [[0, 'asc']],
+  order: [[0, "asc"]],
   responsive: true,
   columns: accountColumns,
   columnDefs: [
@@ -12,6 +15,11 @@ var table = $("#accounts-table").DataTable({
       targets: -1,
       data: null,
       defaultContent:
+        '<div>' +
+        '<a class="account-details" uk-tootlip="Details" style="background: transparent;">' +
+        '<i uk-icon="icon: search; ratio: 0.9"></i>' +
+        "</a>" +
+        "</div>" +
         "<div>" +
         '<a class="account-restore button button-small" uk-tootlip="Restore" style="background: transparent;">' +
         '<i uk-icon="icon: history; ratio: 0.9"></i>' +
@@ -43,6 +51,20 @@ $("#accounts-table").on("click", "a.account-restore", function () {
     });
 });
 
+$("#accounts-table").on("click", "a.account-details", function () {
+  var row = table.row($(this).parents("tr")).data();
+  account_id = row["id"];
+  if (row["verified"] === false) {
+    UIkit.notification({
+      message: "The account hasn't been verified yet.",
+      status: "danger",
+      pos: "top-right",
+    });
+    return;
+  }
+  get_account_details(account_id);
+});
+
 $("#accounts-table").on("change", "input.chck-account-select", function () {
   var row = table.row($(this).parents("tr")).data();
   if (this.checked) {
@@ -52,10 +74,10 @@ $("#accounts-table").on("change", "input.chck-account-select", function () {
       return value !== row["id"];
     });
   }
-  if(accountsSelected.length > 0) {
-    $('#bttn-restore-many').removeAttr('disabled');
+  if (accountsSelected.length > 0) {
+    $("#bttn-restore-many").removeAttr("disabled");
   } else {
-    $('#bttn-restore-many').attr('disabled', true);
+    $("#bttn-restore-many").attr("disabled", true);
   }
 });
 

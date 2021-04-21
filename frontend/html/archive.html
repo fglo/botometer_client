@@ -41,9 +41,12 @@
       </div>
     </div>
 
+    {% include 'modals/account_details.html' %}
+
     {% include 'shared/bottom_imports.html' %}
 
     <script src="{{ url_for('js', path='shared/datatables_definitions.js') }}"></script>
+    <script src="{{ url_for('js', path='modals/account_details.js') }}"></script>
     <script src="{{ url_for('js', path='views/archive.js') }}"></script>
   </body>
 </html>
