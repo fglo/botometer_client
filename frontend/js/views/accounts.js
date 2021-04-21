@@ -1,4 +1,5 @@
 var account_id = 0;
+var account_url = 'https://twitter.com/home';
 
 var table = $("#accounts-table").DataTable({
   ajax: {
@@ -68,7 +69,8 @@ $("#accounts-table").on("click", "a.account-details", function () {
 
   $.get(`/accounts/get/${row["id"]}`)
     .done(function (data) {
-      console.log(data);
+      account_url = data['url'];
+
       var modal = $("#modal-account-details");
       $("#username", modal).html(data["username"]);
       $("#url", modal).html(data["url"]);
@@ -306,8 +308,11 @@ function getFormData($form) {
 }
 
 $("#bttn-show-verifications").click(function () {
-  account_id;
   window.location.href = `/views/verifications?account_id=${account_id}`;
+});
+
+$("#bttn-show-account").click(function () {
+  window.open(account_url,'_blank');
 });
 
 $(document).ready(function () {
